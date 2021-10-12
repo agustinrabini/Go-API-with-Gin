@@ -16,14 +16,14 @@ func main() {
 
 	//r.GET("/user", actions.GetUserByNameAndPhone)
 
-	v1 := r.Group("/v1")
+	v1 := r.Group("/product")
 	{
 		v1.GET("/products", actions.ProductsList)
 		v1.GET("/product/:id", actions.ShowProduct)
 		v1.POST("/productAdd", actions.ProductAdd)
 	}
 
-	v2 := r.Group("/v2")
+	v2 := r.Group("/user")
 	{
 		v2.GET("/user", actions.GetUserByNameAndPhone)
 	}
