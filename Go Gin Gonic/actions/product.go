@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"fmt"
 	"goGin/entities"
+	"io/ioutil"
+	"log"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -39,7 +41,6 @@ func ProductsList(c *gin.Context) {
 	defer dbProducts.Close()
 
 	c.JSON(http.StatusOK, products)
-
 }
 
 //CRUDE
@@ -104,6 +105,31 @@ func ProductAdd(c *gin.Context) {
 	defer stmt.Close()
 
 	c.JSON(http.StatusOK, nil)
+}
+
+func FilterExample(c *gin.Context) {
+
+	fileName := "config.yml"
+	val := "NEW_KEY=THIS_IS_NEW_KEY"
+	data := []byte(val)
+
+	err := ioutil.WriteFile(fileName, data, 0644)
+
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Println("DONE SUCCESFULLY")
+}
+
+func Bind(c *gin.Context) {
+
+	var product entities.Product
+
+	if err := c.ShouldBindJSON(&product); err != nil {
+	}
+
+	c.JSON(http.StatusOK, product)
 }
 
 //

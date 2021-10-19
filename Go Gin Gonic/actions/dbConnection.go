@@ -13,14 +13,15 @@ func DbConecction() (db *sql.DB) {
 
 	user := getEnv("USER")
 	pwd := getEnv("PWD")
+	address := getEnv("ADDRESS")
 	port := getEnv("PORT")
 	schema := getEnv("SCHEMA")
 
-	path := (user + ":" + pwd + "@tcp(" + port + ")" + "/" + schema + "")
+	path := (user + ":" + pwd + "@tcp(" + address + ":" + port + ")" + "/" + schema + "")
 
 	db, err := sql.Open("mysql", path)
 	if err != nil {
-		log.Fatal(err.Error())
+		log.Fatal(err.Error() + "here")
 	}
 	return db
 }
